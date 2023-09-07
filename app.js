@@ -10,8 +10,8 @@ const server = http.createServer((req, res) => {
       return;
     }
     
-    // Substituir a string '{{senha}}' no HTML pelo valor da variável de ambiente
-    const paginaComSenha = data.replace('{{senha}}', SENHA_SECRETA);
+    // Substituir a string '{{SENHA}}' no HTML pelo valor da variável de ambiente
+    const paginaComSenha = data.replace('{{SENHA}}', SENHA_SECRETA);
 
     res.writeHead(200, { 'Content-Type': 'text/html' });
     res.end(paginaComSenha);

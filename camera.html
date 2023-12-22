@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Camera and QR Code Scanner</title>
+    <title>Camera and QR Code Scanner - Version 1</title>
     <style>
         #video-container {
             display: flex;
@@ -28,12 +28,22 @@
         #qr-result {
             margin-top: 10px;
         }
+        #no-camera-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 18px;
+            color: #fff;
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div id="video-container">
         <video id="video" autoplay playsinline></video>
         <div id="qr-overlay"></div>
+        <p id="no-camera-message">No camera available or camera not capturing anything.</p>
     </div>
     <p id="qr-result"></p>
 
@@ -43,6 +53,7 @@
             const video = document.getElementById('video');
             const qrOverlay = document.getElementById('qr-overlay');
             const qrResult = document.getElementById('qr-result');
+            const noCameraMessage = document.getElementById('no-camera-message');
 
             // Check if getUserMedia is available
             if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -60,6 +71,7 @@
                     const scanner = new Instascan.Scanner({ video: video });
                     scanner.addListener('scan', (content) => {
                         qrResult.textContent = 'QR Code content: ' + content;
+                        noCameraMessage.style.display = 'none'; // Hide the no-camera message when QR code is detected
                     });
 
                     // Start scanning
@@ -68,11 +80,13 @@
                             scanner.start(cameras[0]);
                         } else {
                             console.error('No cameras found.');
+                            noCameraMessage.style.display = 'block';
                         }
                     });
                 })
                 .catch((error) => {
                     console.error('Error accessing the camera:', error);
+                    noCameraMessage.style.display = 'block';
                 });
             } else {
                 alert('getUserMedia is not supported in this browser');

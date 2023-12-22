@@ -3,21 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scanner de QR Code</title>
+    <title>Scanner de QR Code com Preview</title>
     <style>
         #video {
             width: 100%;
             max-width: 600px;
         }
+
+        #canvas {
+            display: block;
+            margin-top: 10px;
+        }
+
+        #result {
+            margin-top: 10px;
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
     <video id="video" playsinline></video>
+    <canvas id="canvas" width="640" height="480"></canvas>
+    <div id="result"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/jsqr@1.0.0/dist/jsQR.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
             const video = document.getElementById('video');
+            const canvas = document.getElementById('canvas');
+            const context = canvas.getContext('2d');
+            const resultDiv = document.getElementById('result');
 
             if (navigator.mediaDevices.getUserMedia) {
                 navigator.mediaDevices.getUserMedia({ video: true })
@@ -30,9 +45,6 @@
             }
 
             video.addEventListener('canplay', () => {
-                const canvas = document.createElement('canvas');
-                const context = canvas.getContext('2d');
-
                 canvas.width = video.videoWidth;
                 canvas.height = video.videoHeight;
 
@@ -43,11 +55,14 @@
                     const code = jsQR(imageData.data, imageData.width, imageData.height);
 
                     if (code) {
-                        // Código QR detectado, faça algo com os dados do código (code.data)
-                        console.log('QR Code detectado:', code.data);
+                        // Código QR detectado, exibir o conteúdo na tela
+                        resultDiv.textContent = 'Conteúdo do QR Code: ' + code.data;
                         
                         // Exemplo: Redirecionar para a URL do QR Code
-                        window.location.href = code.data;
+                        // window.location.href = code.data;
+                    } else {
+                        // Se nenhum QR Code for detectado, limpar o conteúdo
+                        resultDiv.textContent = '';
                     }
                 }, 1000); // Ajuste o intervalo conforme necessário
             });

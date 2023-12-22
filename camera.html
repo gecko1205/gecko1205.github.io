@@ -3,69 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scanner de QR Code com Preview</title>
+    <title>Camera Feed</title>
     <style>
+        #video-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
         #video {
             width: 100%;
-            max-width: 600px;
-        }
-
-        #canvas {
-            display: block;
-            margin-top: 10px;
-        }
-
-        #result {
-            margin-top: 10px;
-            font-size: 18px;
+            max-width: 800px;
+            border: 2px solid #333;
         }
     </style>
 </head>
 <body>
-    <video id="video" playsinline></video>
-    <canvas id="canvas" width="640" height="480"></canvas>
-    <div id="result"></div>
+    <div id="video-container">
+        <video id="video" autoplay playsinline></video>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.0.0/dist/jsQR.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
+        document.addEventListener('DOMContentLoaded', () => {
             const video = document.getElementById('video');
-            const canvas = document.getElementById('canvas');
-            const context = canvas.getContext('2d');
-            const resultDiv = document.getElementById('result');
 
-            if (navigator.mediaDevices.getUserMedia) {
+            // Check if getUserMedia is available
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                // Access the user's camera
                 navigator.mediaDevices.getUserMedia({ video: true })
                     .then((stream) => {
+                        // Assign the stream to the video element
                         video.srcObject = stream;
                     })
                     .catch((error) => {
-                        console.error('Erro ao acessar a câmera:', error);
+                        console.error('Error accessing the camera:', error);
                     });
+            } else {
+                alert('getUserMedia is not supported in this browser');
             }
-
-            video.addEventListener('canplay', () => {
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
-
-                setInterval(() => {
-                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-
-                    const code = jsQR(imageData.data, imageData.width, imageData.height);
-
-                    if (code) {
-                        // Código QR detectado, exibir o conteúdo na tela
-                        resultDiv.textContent = 'Conteúdo do QR Code: ' + code.data;
-                        
-                        // Exemplo: Redirecionar para a URL do QR Code
-                        // window.location.href = code.data;
-                    } else {
-                        // Se nenhum QR Code for detectado, limpar o conteúdo
-                        resultDiv.textContent = '';
-                    }
-                }, 1000); // Ajuste o intervalo conforme necessário
-            });
         });
     </script>
 </body>

@@ -4,91 +4,48 @@
   <title>QR Code Scanner</title>
   <style>
     html, body, video { margin: 0; padding: 0; width: 100%; height: 100%; }
-    #openButton, #switchButton, #torchButton { position: fixed; bottom: 20px; left: 50%; padding: 30px 60px; background: lightblue; border: none; border-radius: 5px; display: none; font-size: 24px; }
-    #switchButton { left: 10%; }
-    #torchButton { left: 90%; transform: translateX(-100%); }
   </style>
   <script src="https://unpkg.com/@zxing/library@0.18.6/umd/index.min.js"></script>
 </head>
 <body>
   <video id="video" autoplay></video>
-  <button id="openButton">Open in Sheets App</button>
-  <button id="switchButton">Switch Camera</button>
-  <button id="torchButton">Toggle Torch</button>
 
   <script>
     window.addEventListener('load', function () {
       let video = document.getElementById('video');
-      let openButton = document.getElementById('openButton');
-      let switchButton = document.getElementById('switchButton');
-      let torchButton = document.getElementById('torchButton');
       let codeReader = new ZXing.BrowserQRCodeReader();
-      let currentDeviceIndex = 0;
-      let videoInputDevices = [];
-      let track;
-      let torchStatus = false;
-      
+
       function startScanning(deviceId) {
-        codeReader.reset();  // reset the previous reader.
         codeReader.decodeFromVideoDevice(deviceId, video, (result, err) => {
           if (result) {
             console.log(result.text);
-            let assetNumber = result.text.slice(-8);
-
-            // Reset the reader to stop scanning
-            codeReader.reset();
-
-            // Make a request to your Google Apps Script API
-            fetch('https://script.google.com/macros/s/AKfycbyaBt7vxqrsN4WyVotuJmJQsLIBKmCZJ6dkr8lTcs09bsL4-3_rApWdEcy5shkIf6pt/exec?asset=' + assetNumber)
-              .then(response => response.json())
-              .then(data => {
-                // If on Android, show the button instead of redirecting
-                if (navigator.userAgent.match(/Android/i)) {
-                  openButton.style.display = 'block';
-                  openButton.onclick = function() {
-                    // Replace the https://docs.google.com/spreadsheets/d/ part of the URL with intent://spreadsheets/d/
-                    window.location.href = data.url.replace("https://docs.google.com/spreadsheets/d/", "intent://spreadsheets/d/") + "#Intent;scheme=https;package=com.google.android.apps.docs.editors.sheets;end";
-                  };
-                } else {
-                  window.location.href = data.url;
-                }
-              })
-              .catch(error => console.error('Error:', error));
+            processQRCodeResult(result.text);
           }
           if (err && !(err instanceof ZXing.NotFoundException)) {
             console.error(err);
           }
-        }).then(function (ctrl) {
-          track = ctrl.stream.getVideoTracks()[0];
+          // Continue scanning after each attempt
+          startScanning(deviceId);
         });
       }
 
-      codeReader
-        .getVideoInputDevices()
-        .then((devices) => {
-          videoInputDevices = devices;
-          if (videoInputDevices.length >= 1) {
-            startScanning(videoInputDevices[currentDeviceIndex].deviceId);
-            switchButton.style.display = 'block';
-            switchButton.onclick = function() {
-              currentDeviceIndex = (currentDeviceIndex + 1) % videoInputDevices.length;
-              startScanning(videoInputDevices[currentDeviceIndex].deviceId);
-            };
+      codeReader.getVideoInputDevices().then((devices) => {
+        if (devices.length >= 1) {
+          startScanning(devices[0].deviceId);
+        } else {
+          console.error('No video input devices found.');
+        }
+      }).catch((err) => console.error(err));
 
-            // Torch button logic
-            torchButton.style.display = 'block';
-            torchButton.onclick = function() {
-              torchStatus = !torchStatus;
-              if (track && typeof track.getCapabilities === 'function') {
-                let capabilities = track.getCapabilities();
-                if (capabilities.torch) {
-                  track.applyConstraints({advanced: [{torch: torchStatus}]})
-                }
-              }
-            };
-          }
-        })
-        .catch((err) => console.error(err));
+      function processQRCodeResult(content) {
+        if (content === 'senha123') {
+          // Se o conteúdo do QR Code for "senha123", redirecione para google.com
+          window.location.href = 'https://www.google.com';
+        } else {
+          // Caso contrário, exiba o conteúdo do QR Code
+          alert('QR Code Content: ' + content);
+        }
+      }
     });
   </script>
 </body>

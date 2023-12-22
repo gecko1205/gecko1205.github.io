@@ -4,38 +4,53 @@
   <title>QR Code Scanner</title>
   <style>
     html, body, video { margin: 0; padding: 0; width: 100%; height: 100%; }
-    #error-message { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: red; color: white; padding: 10px; display: none; }
+    #scan-message { position: fixed; top: 0; left: 0; width: 100%; background: #333; color: white; text-align: center; padding: 10px; font-size: 18px; transition: background 0.5s ease; }
+    .error { background: red; }
   </style>
   <script src="https://unpkg.com/@zxing/library@0.18.6/umd/index.min.js"></script>
 </head>
 <body>
   <video id="video" autoplay></video>
-  <div id="error-message">Invalid QR Code</div>
+  <div id="scan-message">Starting camera...</div>
 
   <script>
     window.addEventListener('load', function () {
       let video = document.getElementById('video');
-      let errorMessage = document.getElementById('error-message');
+      let scanMessage = document.getElementById('scan-message');
       let codeReader = new ZXing.BrowserQRCodeReader();
-      
-      function startScanning() {
+      let scanTimeout;
+      let currentStream;
+
+      function startScanning(deviceId) {
         codeReader.reset();  // reset the previous reader.
-        codeReader.decodeFromVideoDevice(undefined, video, (result, err) => {
+        codeReader.decodeFromVideoDevice(deviceId, video, (result, err) => {
           if (result) {
             console.log(result.text);
             if (result.text === "senha123") {
               window.location.href = "https://www.google.com";
             } else {
-              // Show error message
-              errorMessage.style.display = 'block';
-
-              // Reset the reader to stop scanning after an error
+              // Display error message
+              scanMessage.textContent = 'Invalid Code';
+              scanMessage.classList.add('error');
+              // Reset the reader to continue scanning after an error
               codeReader.reset();
+
+              // Clear error message after 2 seconds
+              clearTimeout(scanTimeout);
+              scanTimeout = setTimeout(() => {
+                scanMessage.textContent = 'Scan QR Code to proceed';
+                scanMessage.classList.remove('error');
+                // Restart scanning with the same camera
+                startScanning(deviceId);
+              }, 2000);
             }
           }
           if (err && !(err instanceof ZXing.NotFoundException)) {
             console.error(err);
           }
+        }).then(function (ctrl) {
+          // Save the current stream to handle it later
+          currentStream = ctrl.stream;
         });
       }
 

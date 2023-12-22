@@ -4,14 +4,28 @@
   <title>QR Code Scanner</title>
   <style>
     html, body, video { margin: 0; padding: 0; width: 100%; height: 100%; }
-    #scan-message { position: fixed; top: 0; left: 0; width: 100%; background: #333; color: white; text-align: center; padding: 10px; font-size: 18px; transition: background 0.5s ease; }
+    body { background-color: black; }
+    #scan-message { 
+      position: fixed; 
+      top: 0; 
+      left: 0; 
+      width: 100%; 
+      background: #000; 
+      color: white; 
+      text-align: center; 
+      padding: 20px; 
+      font-size: 24px; 
+      font-family: 'DM Mono', monospace; 
+      transition: background 0.5s ease; 
+    }
     .error { background: red; }
   </style>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300&display=swap">
   <script src="https://unpkg.com/@zxing/library@0.18.6/umd/index.min.js"></script>
 </head>
 <body>
   <video id="video" autoplay></video>
-  <div id="scan-message">Starting camera...</div>
+  <div id="scan-message">Scan QR Code to proceed</div>
 
   <script>
     window.addEventListener('load', function () {

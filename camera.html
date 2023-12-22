@@ -4,58 +4,56 @@
   <title>QR Code Scanner</title>
   <style>
     html, body, video { margin: 0; padding: 0; width: 100%; height: 100%; }
-    #switchButton { position: fixed; top: 10px; right: 10px; padding: 10px; background: lightblue; border: none; border-radius: 5px; font-size: 16px; }
+    #error-message { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: red; color: white; padding: 10px; display: none; }
   </style>
   <script src="https://unpkg.com/@zxing/library@0.18.6/umd/index.min.js"></script>
 </head>
 <body>
   <video id="video" autoplay></video>
-  <button id="switchButton">Switch Camera</button>
+  <div id="error-message">Invalid QR Code</div>
 
   <script>
     window.addEventListener('load', function () {
       let video = document.getElementById('video');
+      let errorMessage = document.getElementById('error-message');
       let codeReader = new ZXing.BrowserQRCodeReader();
-      let currentDeviceIndex = 0;
-
-      function startScanning(deviceId) {
-        codeReader.decodeFromVideoDevice(deviceId, video, (result, err) => {
+      
+      function startScanning() {
+        codeReader.reset();  // reset the previous reader.
+        codeReader.decodeFromVideoDevice(undefined, video, (result, err) => {
           if (result) {
             console.log(result.text);
-            processQRCodeResult(result.text);
+            if (result.text === "senha123") {
+              window.location.href = "https://www.google.com";
+            } else {
+              // Show error message
+              errorMessage.style.display = 'block';
+
+              // Reset the reader to stop scanning after an error
+              codeReader.reset();
+            }
           }
           if (err && !(err instanceof ZXing.NotFoundException)) {
             console.error(err);
           }
-          // Continue scanning after each attempt
-          startScanning(deviceId);
         });
       }
 
-      codeReader.getVideoInputDevices().then((devices) => {
-        if (devices.length >= 1) {
-          startScanning(devices[currentDeviceIndex].deviceId);
-        } else {
-          console.error('No video input devices found.');
-        }
-      }).catch((err) => console.error(err));
-
-      document.getElementById('switchButton').addEventListener('click', function () {
-        // Switch to the next available camera
-        currentDeviceIndex = (currentDeviceIndex + 1) % codeReader.listVideoInputDevices().length;
-        codeReader.reset();
-        startScanning(codeReader.listVideoInputDevices()[currentDeviceIndex].deviceId);
-      });
-
-      function processQRCodeResult(content) {
-        if (content === 'senha123') {
-          // Se o conteúdo do QR Code for "senha123", redirecione para google.com
-          window.location.href = 'https://www.google.com';
-        } else {
-          // Caso contrário, exiba o conteúdo do QR Code
-          alert('QR Code Content: ' + content);
-        }
-      }
+      codeReader
+        .getVideoInputDevices()
+        .then((devices) => {
+          let backFacingDevices = devices.filter(device => device.label.toLowerCase().includes('back'));
+          if (backFacingDevices.length > 0) {
+            // Use the first back-facing camera found
+            startScanning(backFacingDevices[0].deviceId);
+          } else if (devices.length > 0) {
+            // If no back-facing camera found, use the first available camera
+            startScanning(devices[0].deviceId);
+          } else {
+            console.error('No video input devices found.');
+          }
+        })
+        .catch((err) => console.error(err));
     });
   </script>
 </body>

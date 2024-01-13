@@ -1,5 +1,5 @@
 .body {
-  background: #48c9b0;
+  background: #000000;
 }
 
 .login-page {
@@ -8,10 +8,32 @@
   margin: 0;
 }
 
+.fas {
+  color: white;
+}
+.fas.active {
+  color: darkgray;
+}
+
+.form .primary-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.form .secondary-button {
+  background-color: #333;
+  color: white;
+}
+
+.form .primary-button:hover,
+.form .secondary-button:hover {
+  opacity: 1;
+}
+
 .form {
   position: relative;
   z-index: 1;
-  background: #48c9b0;
+  background: #000000;
   max-width: 100%;
   margin: 0 auto 100px;
   padding: 45px;

@@ -41,6 +41,10 @@
   box-shadow: none
 }
 
+button:focus {
+  outline: none;
+}
+
 .form input {
   font-family: FontAwesome, "DM Mono", sans-serif;
   outline: 0;

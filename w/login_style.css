@@ -2,6 +2,13 @@
   background: #000000;
 }
 
+.title {
+  font-size: 2em;
+  color: #ffffff;
+  margin-top: 10px;
+  font-family: "DM Mono", sans-serif;
+}
+
 .login-page {
   width: 100%;
   padding: 8% 0 0;
@@ -16,12 +23,12 @@
 }
 
 .form .primary-button {
-  background-color: #4CAF50;
+  background-color: #17415e;
   color: white;
 }
 
 .form .secondary-button {
-  background-color: #333;
+  background-color: #2a38449f;
   color: white;
 }
 
@@ -64,7 +71,7 @@ button:focus {
   font-weight: bold;
   letter-spacing: .1em;
   outline: 0;
-  background: #17a589;
+  background: #3699e09f;
   width: 100%;
   border: 0;
   border-radius: 30px;
@@ -78,7 +85,7 @@ button:focus {
 }
 
 .form button:hover, .form button:focus {
-  background: #148f77;
+  background: #3699e09f;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   transform: translateY(-4px);
 }
@@ -90,7 +97,7 @@ button:focus {
 
 .form .message {
   margin: 6px 6px;
-  color: #808080;
+  color: #ffffff;
   font-size: 11px;
   text-align: center;
   font-weight: bold;
@@ -147,13 +154,12 @@ button:focus {
   color: #EF3B3A;
 }
 
-body {
-  background: #76b852;
-  background: -webkit-linear-gradient(right, #76b852, #8DC26F);
-  background: -moz-linear-gradient(right, #76b852, #8DC26F);
-  background: -o-linear-gradient(right, #76b852, #8DC26F);
-  background: linear-gradient(to left, #76b852, #8DC26F);
-  font-family: "Roboto", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+#generatedPassword {
+  background-color: #17405e9f;
+  padding: 14px;
+  border-radius: 30px;
+  font-size: 16px;
+  color: #afc5d4;
+  font-family: "DM Mono", sans-serif;
+  letter-spacing: .1em;
 }

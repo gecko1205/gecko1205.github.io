@@ -14,16 +14,18 @@
     <div class="login-page">
       <div class="form">
 
-        <form>
+        <form id="signupForm">
           <img src="https://i.imgur.com/AYrbizY.png" style="width: 100%; max-width: 400px; height: auto; display: block; margin: 0 auto; margin-bottom: 20px;">
-          <input type="text" placeholder="&#xf007;  name"/>
-          <input type="text" placeholder="&#xf0e0;  email"/>
-          <input type="password" id="password" placeholder="&#xf023;  password"/>
-          <i class="fas fa-eye" onclick="show()"></i> 
+          <h2 class="title">Create an account</h2>
+          <input type="text" required placeholder="&#xf007;  Full Name" oninput="this.value = this.value.toUpperCase(); generatePassword()" />
+          <input type="text" id="dob" required placeholder="&#xf073;  Date of Birth (MM/DD)" pattern="\d{2}/\d{2}" maxlength="5" oninput="generatePassword()" />
+          <input type="iso_code" maxlength="2" required placeholder="&#xf024;  Country of Origin (ISO 3166-1 alpha-2)" oninput="this.value = this.value.toUpperCase(); generatePassword()" pattern="[A-Za-z][A-Za-z]" />
+          <input type="text" id="invitation_code" required placeholder="&#xf0e0;  Invitation Code" minlength="4" maxlength="4" oninput="generatePassword()" />
+          <input type="text" id="password" placeholder="&#xf023;  Confirm Password" minlength="14" maxlength="14"/>
           <br>
+          <p class="message" id="generatedPassword"></p>
           <br>
-          <button class="primary-button">SIGN UP</button>
-          <p class="message"></p>
+          <button type="button" class="primary-button" onclick="checkPassword()">SIGN UP</button>
         </form>
   
         <form class="login-form">
@@ -33,18 +35,49 @@
     </div>
 
     <script>
-      function show() {
-        var password = document.getElementById("password");
-        var icon = document.querySelector(".fas");
-  
-        if (password.type === "password") {
-          password.type = "text";
-          icon.classList.add("active");
+      function generatePassword() {
+        var fullName = document.querySelector('input[placeholder*="Full Name"]').value;
+        var dob = document.getElementById("dob").value;
+        var country = document.querySelector('input[placeholder*="Country of Origin"]').value;
+        var inviteCode = document.getElementById("invitation_code").value;
+
+        var nameParts = fullName.split(" ");
+        var firstName = nameParts[0].slice(0, 2);
+        var lastName = nameParts[nameParts.length - 1].slice(-2);
+
+        dob = dob.replace(/\//g, '');
+
+        var password = `${firstName}${lastName}${country}${dob}${inviteCode}`;
+        document.getElementById("generatedPassword").textContent = `Generated Password: ${password}`;
+      }
+
+      function checkPassword() {
+        var enteredPassword = document.getElementById("password").value.trim();
+        var generatedPassword = document.getElementById("generatedPassword").textContent.replace("Generated Password: ", "").trim();
+
+        if (enteredPassword.length === 14 && enteredPassword === generatedPassword) {
+          alert("Invalid invitation code.");
+        } else if (enteredPassword.length !== 14) {
+          alert("Invalid password.");
         } else {
-          password.type = "password";
-          icon.classList.remove("active");
+          alert("Passwords do not match.");
         }
-      };
+}
+      
+      document.getElementById("dob").addEventListener("input", function() {
+        var value = this.value.replace(/\D/g, '');
+        if (value.length > 4) {
+          value = value.slice(0, 4);
+        }
+        if (value.length >= 2) {
+          value = value.slice(0, 2) + '/' + value.slice(2);
+        }
+        this.value = value;
+
+        generatePassword();
+      });
+      generatePassword();
+
     </script>
-    </body>
+  </body>
 </html>

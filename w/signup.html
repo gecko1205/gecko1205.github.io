@@ -17,10 +17,10 @@
         <form id="signupForm">
           <img src="https://i.imgur.com/AYrbizY.png" style="width: 100%; max-width: 400px; height: auto; display: block; margin: 0 auto; margin-bottom: 20px;">
           <h2 class="title">Create an account</h2>
-          <input type="text" required placeholder="&#xf007;  Full Name" oninput="this.value = this.value.toUpperCase(); generatePassword()" />
+          <input type="text" id="name" required placeholder="&#xf007;  Full Name" oninput="this.value = this.value.toUpperCase(); generatePassword()" />
           <input type="text" id="dob" required placeholder="&#xf073;  Date of Birth (MM/DD)" pattern="\d{2}/\d{2}" maxlength="5" oninput="generatePassword()" />
-          <input type="iso_code" maxlength="2" required placeholder="&#xf024;  Country of Origin (ISO 3166-1 alpha-2)" oninput="this.value = this.value.toUpperCase(); generatePassword()" pattern="[A-Za-z][A-Za-z]" />
-          <input type="text" id="invitation_code" required placeholder="&#xf0e0;  Invitation Code" minlength="4" maxlength="4" oninput="generatePassword()" />
+          <input type="text" id="iso_code" maxlength="2" required placeholder="&#xf024;  Country of Origin (ISO 3166-1 alpha-2)" oninput="this.value = this.value.replace(/[^A-Za-z]/g, '').toUpperCase(); generatePassword()" pattern="[A-Za-z]{2}" />
+          <input type="text" id="invitation_code" required placeholder="&#xf0e0;  Invitation Code" minlength="4" maxlength="4" oninput="this.value = this.value.replace(/\s/g, ''); generatePassword()" />
           <input type="text" id="password" placeholder="&#xf023;  Confirm Password" minlength="14" maxlength="14"/>
           <br>
           <p class="message" id="generatedPassword"></p>
@@ -35,36 +35,56 @@
     </div>
 
     <script>
-      function generatePassword() {
-        var fullName = document.querySelector('input[placeholder*="Full Name"]').value;
-        var dob = document.getElementById("dob").value;
-        var country = document.querySelector('input[placeholder*="Country of Origin"]').value;
-        var inviteCode = document.getElementById("invitation_code").value;
+    function generatePassword() {
+      var fullName = document.getElementById("name").value.trim();
+      var dob = document.getElementById("dob").value;
+      var country = document.getElementById("iso_code").value;
+      var inviteCode = document.getElementById("invitation_code").value;
 
-        var nameParts = fullName.split(" ");
-        var firstName = nameParts[0].slice(0, 2);
-        var lastName = nameParts[nameParts.length - 1].slice(-2);
+      var nameParts = fullName.split(" ");
+      var firstName = nameParts[0].slice(0, 2);
+      var lastName = nameParts[nameParts.length - 1].slice(-2);
 
-        dob = dob.replace(/\//g, '');
+      dob = dob.replace(/\//g, '');
 
-        var password = `${firstName}${lastName}${country}${dob}${inviteCode}`;
-        document.getElementById("generatedPassword").textContent = `Generated Password: ${password}`;
-      }
+      var password = `${firstName}${lastName}${country}${dob}${inviteCode}`;
+      document.getElementById("generatedPassword").textContent = `Generated Password: ${password}`;
+    }
 
-      function checkPassword() {
-        var enteredPassword = document.getElementById("password").value.trim();
-        var generatedPassword = document.getElementById("generatedPassword").textContent.replace("Generated Password: ", "").trim();
+    function checkPassword() {
+    var enteredPassword = document.getElementById("password").value.trim();
+    var generatedPassword = document.getElementById("generatedPassword").textContent.replace("Generated Password: ", "").trim();
 
-        if (enteredPassword.length === 14 && enteredPassword === generatedPassword) {
-          alert("Invalid invitation code.");
-        } else if (enteredPassword.length !== 14) {
-          alert("Invalid password.");
-        } else {
-          alert("Passwords do not match.");
-        }
-}
-      
-      document.getElementById("dob").addEventListener("input", function() {
+    if (enteredPassword.length === 14 && enteredPassword === generatedPassword) {
+      alert("Invalid invitation code.");
+    } else if (enteredPassword.length !== 14) {
+      alert("Invalid password.");
+    } else {
+      alert("Passwords do not match.");
+    }
+  }
+
+  function alert(message) {
+    var existingAlerts = document.querySelectorAll(".custom-alert");
+    existingAlerts.forEach(function (alert) {
+      alert.parentNode.removeChild(alert);
+    });
+
+    var div = document.createElement("div");
+    div.className = "custom-alert";
+    div.innerHTML = "<div style='font-family: \"DM Mono\", sans-serif; color: #ffffff; background-color: #Cb3232ee; border: 2px solid #ffffff; border-radius: 5px; padding: 10px;'>" + message + "</div>";
+    document.body.appendChild(div);
+    div.style.position = "fixed";
+    div.style.top = "50%";
+    div.style.left = "50%";
+    div.style.transform = "translate(-50%, -50%)";
+    div.style.zIndex = "9999";
+    setTimeout(function () {
+      div.parentNode.removeChild(div);
+    }, 3000);
+  }
+
+  document.getElementById("dob").addEventListener("input", function() {
         var value = this.value.replace(/\D/g, '');
         if (value.length > 4) {
           value = value.slice(0, 4);

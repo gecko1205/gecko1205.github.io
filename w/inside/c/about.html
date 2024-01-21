@@ -10,7 +10,10 @@
 </head>
 <body>
     <div id="header-container">
-        <p id="account-level">Ineffabilis account level: <strong>C</strong></p>
+        <div id="account-info">
+            <p id="account-level">Ineffabilis account level: <strong>C</strong></p>
+            <button class="button" id="logoutButton" onclick="window.location.href='../../login.html'"><i class="material-icons">exit_to_app</i></button>
+        </div>
     </div>
     <div id="current-objective">
         <h2>About</h2>
@@ -26,9 +29,7 @@
     <div id="buttons">
         <button class="button" onclick="window.location.href='missions.html'">MISSIONS</button>
         <button class="button" onclick="window.location.href='announcements.html'">ANNOUNCEMENTS</button>
-        <button class="button" id="selectedButton">ABOUT</button>
-        <button class="button" id="logoutButton" onclick="window.location.href='../../login.html'"><i class="material-icons">exit_to_app</i></button>
-                                
+        <button class="button" id="selectedButton">ABOUT</button>                               
     </div>
 </body>
 </html>

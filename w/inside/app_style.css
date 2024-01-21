@@ -8,17 +8,28 @@ body {
 
 #header-container {
   background-color: #2a3844;
-  padding: 8px;
-  text-align: left;
+  padding-left: 10px;
+  padding-right: 2px;
+}
+
+#account-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 #account-level {
-  margin: 0;
-  font-size: 0.7em;
+  font-size: 0.8em;
 }
 
-#account-level strong {
-  font-weight: bold;
+#logoutButton {
+  background-color: #2a3844;
+  padding: 2px 5px;
+  font-size: 0.8em;
+}
+
+#logoutButton:hover {
+  background-color: #3699e0;
 }
 
 #current-objective {
@@ -26,8 +37,23 @@ body {
   margin: 10px 0;
 }
 
+
 #current-objective h2 {
   font-size: 0.8em;
+}
+
+.countdown-box {
+  background-color: #Cb3232ee;
+  border-radius: 6px;
+  padding: 6px;
+  display: inline-block;
+}
+
+.countdown-box p {
+  margin: 0;
+  font-size: 1.5em;
+  color: white;
+  font-weight: bold;
 }
 
 #map-container {
@@ -89,14 +115,6 @@ body {
 .button:active {
   transform: translateY(2px);
   box-shadow: 0 2.5px 5px rgba(0, 0, 0, 0.2);
-}
-
-#logoutButton {
-  background-color: #2a3844;
-}
-
-#logoutButton:hover {
-  background-color: #3699e0;
 }
 
 #selectedButton {

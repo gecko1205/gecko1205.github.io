@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Level C</title>
+    <link rel="stylesheet" href="../app_style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+    <div id="header-container">
+        <div id="account-info">
+            <p id="account-level">Ineffabilis account level: <strong>C</strong></p>
+            <button class="button" id="logoutButton" onclick="window.location.href='../../login.html'"><i class="material-icons">exit_to_app</i></button>
+        </div>
+    </div>
+    <div id="current-objective">
+        <h2>Select a reason</h2>
+    </div>
+
+    <div id="chat">
+        <button class="button select" id="selectedButton">Location is inaccessible</button>
+        <button class="button select" id="selectedButton">Unable to find the target</button>
+        <button class="button select" id="selectedButton">Item malfunction</button>
+        <button class="button select" id="selectedButton">Item lost or destroyed</button>
+
+        <button onclick="window.location.href='announcements.html'" class="button report">CANCEL</button>
+    </div>
+
+    <div id="buttons">
+        <button class="button" onclick="window.location.href='missions.html'">MISSIONS</button>
+        <button class="button" id="selectedButton">ANNOUNCEMENTS</button>
+        <button class="button" onclick="window.location.href='about.html'">ABOUT</button>                                
+    </div>
+</body>
+</html>

@@ -11,21 +11,34 @@
 <body>
     <div id="header-container">
         <div id="account-info">
-            <p id="account-level">Ineffabilis account level: <strong>C</strong></p>
+            <p id="account-level">Ineffabilis account level: <strong>B</strong></p>
             <button class="button" id="logoutButton" onclick="window.location.href='../../login.html'"><i class="material-icons">exit_to_app</i></button>
         </div>
     </div>
 
     <div id="current-objective">
-        <h2>Hide the EncN device within the designated area</h2>
+        <h2>Assemble and hide an additional EncN device</h2>
         <div class="countdown-box">
             <p>00:00:00</p>
         </div>
     </div>
 
+    <div class="scrollable">
+        <div id="current-objective">
+            <h2>1. Assemble the device</h2>
+        </div>
     <div id="map-container">
         <div class="box">
-            <img src="map.png" alt="Map Image">
+            <img src="blueprint.png">
+            <button class="button" id="downloadButton" onclick="alert('Missing download permission.')">Download the EncN assembly manual</button>
+        </div>
+    </div>
+    <div id="current-objective">
+        <h2>2. Hide the device</h2>
+    </div>
+    <div id="map-container">
+        <div class="box">
+            <img src="map.png">
             <p id="coordinates">34.929589, 135.734719</p>
         </div>
     </div>
@@ -34,8 +47,8 @@
         <h2>• Ensure discreet handling of the device to avoid detection.</h2>
         <h2>• Prefer to conceal the device in a secluded area.</h2>
         <h2>• Avoid exposing the device to water or moisture.</h2>
-        <h2>• Upon setup, use your NFC card to initiate the device.</h2>
         <h2>• Submit a report if the location becomes inaccessible.</h2>
+    </div>
     </div>
 
     <div id="buttons">
@@ -43,5 +56,28 @@
         <button class="button" onclick="window.location.href='announcements.html'">ANNOUNCEMENTS</button>
         <button class="button" onclick="window.location.href='about.html'">ABOUT</button>
     </div>
+
+    <script>
+        function alert(message) {
+          var existingAlerts = document.querySelectorAll(".custom-alert");
+          existingAlerts.forEach(function (alert) {
+            alert.parentNode.removeChild(alert);
+          });
+    
+          var div = document.createElement("div");
+          div.className = "custom-alert";
+          div.innerHTML = "<div style='font-family: \"DM Mono\", sans-serif; color: #ffffff; background-color: #Cb3232ee; border: 2px solid #ffffff; border-radius: 5px; padding: 10px; font-size: 20px; white-space: nowrap;'>" + message + "</div>";
+          document.body.appendChild(div);
+          div.style.position = "fixed";
+          div.style.top = "50%";
+          div.style.left = "50%";
+          div.style.transform = "translate(-50%, -50%)";
+          div.style.zIndex = "9999";
+          setTimeout(function () {
+            div.parentNode.removeChild(div);
+          }, 3000);
+        }
+        </script>
+    
 </body>
 </html>

@@ -151,6 +151,11 @@ body {
   color: #afc5d4;
 }
 
+#downloadButton {
+  background-color: #17405e9f;
+  color: #afc5d4;
+}
+
 #instruction-list {
   font-size: 0.5em;
   text-align: left;
@@ -175,6 +180,13 @@ body {
 #chat h2 r {
   color: #Cb3232ee;
 }
+#chat h2 a {
+  background-color: #Cb3232ee;
+  display: inline-block;
+}
+#chat h2 o {
+  color: #f88232ee;
+}
 
 #about {
   font-size: 0.7em;
@@ -187,4 +199,18 @@ body {
 .paragraph-container h2 {
   color: #3699e0;
   text-align: center;
+}
+
+.scrollable {
+  max-height: 685px;
+  overflow-y: auto;
+}
+.scrollable::-webkit-scrollbar {
+  width: 0;
+}
+.scrollable::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollable::-webkit-scrollbar-thumb {
+  background: transparent;
 }

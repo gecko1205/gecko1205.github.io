@@ -11,7 +11,7 @@
 <body>
     <div id="header-container">
         <div id="account-info">
-            <p id="account-level">Ineffabilis account level: <strong>C</strong></p>
+            <p id="account-level">Ineffabilis account level: <strong>B</strong></p>
             <button class="button" id="logoutButton" onclick="window.location.href='../../login.html'"><i class="material-icons">exit_to_app</i></button>
         </div>
     </div>
@@ -24,6 +24,7 @@
         <button class="button select" id="selectedButton">Unable to find the target</button>
         <button class="button select" id="selectedButton">Device malfunction</button>
         <button class="button select" id="selectedButton">Object lost or destroyed</button>
+        <button class="button select" onclick="alert('Exceeded request limit.')">Request download permission</button>
 
         <button onclick="window.location.href='announcements.html'" class="button report">CANCEL</button>
     </div>
@@ -33,5 +34,27 @@
         <button class="button" id="selectedButton">ANNOUNCEMENTS</button>
         <button class="button" onclick="window.location.href='about.html'">ABOUT</button>                                
     </div>
+
+    <script>
+    function alert(message) {
+      var existingAlerts = document.querySelectorAll(".custom-alert");
+      existingAlerts.forEach(function (alert) {
+        alert.parentNode.removeChild(alert);
+      });
+
+      var div = document.createElement("div");
+      div.className = "custom-alert";
+      div.innerHTML = "<div style='font-family: \"DM Mono\", sans-serif; color: #ffffff; background-color: #Cb3232ee; border: 2px solid #ffffff; border-radius: 5px; padding: 10px; font-size: 20px; white-space: nowrap;'>" + message + "</div>";
+      document.body.appendChild(div);
+      div.style.position = "fixed";
+      div.style.top = "50%";
+      div.style.left = "50%";
+      div.style.transform = "translate(-50%, -50%)";
+      div.style.zIndex = "9999";
+      setTimeout(function () {
+        div.parentNode.removeChild(div);
+      }, 3000);
+    }
+    </script>
 </body>
 </html>

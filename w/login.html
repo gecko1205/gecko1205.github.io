@@ -6,8 +6,8 @@
   <meta charset="utf-8">
   <link rel="stylesheet" type="text/css" href="login_style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>  
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+  <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>  
 </head>
 
 <body class="body">
@@ -16,7 +16,7 @@
       <form onsubmit="login()">
         <img src="https://i.imgur.com/AYrbizY.png" style="width: 100%; max-width: 400px; height: auto; display: block; margin: 0 auto; margin-bottom: 20px;">
         <h2 class="title">Welcome to Ineffabilis</h2>
-        <input type="text" id="username" placeholder="&#xf007;  First Name" oninput="this.value = this.value.toUpperCase()"/>
+        <input type="text" id="username" placeholder="&#xf007;  First Name" oninput="validateName(this)"/>
         <input type="password" id="password" placeholder="&#xf023;  Password"/>
         <i class="fas fa-eye" onclick="show()"></i> 
         <br>
@@ -65,18 +65,23 @@
       }
     };
 
+  function validateName(input) {
+    input.value = input.value
+      .toUpperCase()
+      .replace(/[^A-Z\s'-]/g, '');
+    }
+
     function login() {
       event.preventDefault();
 
       var username = document.getElementById("username").value.trim();
       var password = document.getElementById("password").value.trim();
 
-      // Check credentials and redirect
-      if (username === "NAME1" && password === "pass1") {
+      if (username === "NAMEC" && password === "passc") {
         window.location.href = "inside/c/missions.html";
-      } else if (username === "NAME2" && password === "pass2") {
+      } else if (username === "NAMEB" && password === "passb") {
         window.location.href = "inside/b/missions.html";
-      } else if (username === "NAME3" && password === "pass3") {
+      } else if (username === "NAMEA" && password === "passa") {
         window.location.href = "inside/a/missions.html";
       } else {
         alert("Invalid credentials.");

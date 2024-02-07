@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ineffabilis</title>
+    <link rel="stylesheet" href="../app_style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+    <div id="header-container">
+        <div id="account-info">
+            <p id="account-level">Ineffabilis account level: <strong>A</strong></p>
+            <button class="button" id="logoutButton" onclick="window.location.href='../../login.html'"><i class="material-icons">exit_to_app</i></button>
+        </div>
+    </div>
+
+    <div id="page-title">
+        <h2>Assign new mission</h2>
+    </div>
+
+        <div class="scrollable">
+            <div id="user-actions">
+                <label for="selectGroup">Select group:</label>
+                <select id="selectGroup">
+                    <option value="Matrices">(B) Matrices</option>
+                    <option value="Sowers">(C) Sowers</option>
+                    <option value="SpecificUser">Specific User:</option>
+                </select>
+                <input type="text" id="specificUserInput" placeholder="Full Name">
+
+                <label for="expirationTimeInput">Set expiration time:</label>
+                <input type="datetime-local" id="expirationTimeInput">
+                <br>
+                <label for="messageInput">Title:</label>
+                <input type="text" id="messageInput">
+
+                <label for="messageInput">Content:</label>
+                <input type="text" id="messageInput">
+        
+                <label for="attachmentsInput">Add attachments:</label>
+                <input type="file" id="attachmentsInput">
+        
+                <button id="addMessageButton" onclick="alert('Unavailable on mobile.')">Add topic [+]</button>
+
+                <button class=assign-mission id="assignMissionButton">Assign mission</button>
+            </div>
+        </div>
+
+    <div id="buttons">
+        <button class="button" id="selectedButton">MISSIONS</button>
+        <button class="button" onclick="window.location.href='issues.html'">ISSUES</button>
+        <button class="button" onclick="window.location.href='pannel.html'">PANNEL</button>
+    </div>
+
+    <script>
+        
+        function alert(message) {
+          var existingAlerts = document.querySelectorAll(".custom-alert");
+          existingAlerts.forEach(function (alert) {
+            alert.parentNode.removeChild(alert);
+          });
+    
+          var div = document.createElement("div");
+          div.className = "custom-alert";
+          div.innerHTML = "<div style='font-family: \"DM Mono\", sans-serif; color: #ffffff; background-color: #Cb3232ee; border: 2px solid #ffffff; border-radius: 5px; padding: 10px; font-size: 20px; white-space: nowrap;'>" + message + "</div>";
+          document.body.appendChild(div);
+          div.style.position = "fixed";
+          div.style.top = "50%";
+          div.style.left = "50%";
+          div.style.transform = "translate(-50%, -50%)";
+          div.style.zIndex = "9999";
+          setTimeout(function () {
+            div.parentNode.removeChild(div);
+          }, 3000);
+        }
+
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        window.onload = function() {
+            var nameParameter = getParameterByName('name');
+            if (nameParameter) {
+                document.getElementById('specificUserInput').value = nameParameter;
+                document.getElementById('selectGroup').value = 'SpecificUser';
+            }
+
+            var scrollableElement = document.querySelector('.scrollable');
+            scrollableElement.scrollTop = scrollableElement.scrollHeight;
+            setTimeout(function() {
+                scrollableElement.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }, 0);
+        };
+        </script>
+    
+</body>
+</html>

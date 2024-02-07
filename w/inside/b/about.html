@@ -15,30 +15,40 @@
             <button class="button" id="logoutButton" onclick="window.location.href='../../login.html'"><i class="material-icons">exit_to_app</i></button>
         </div>
     </div>
-    <div id="current-objective">
+    <div id="page-title">
         <h2>About Ineffabilis</h2>
     </div>
-
-    <div id="about">
+    <div id="about" class="scrollable">
         <div class="paragraph-container">
             <h2>THE ORIGIN</h2>
-            <p>ㅤMy inspiration for temporal mastery stems from the profound exploration of the fourth dimension during my NOVA tenure, particularly while working on intertemporal communication. This realization led to the inception of Ineffabilis, a transformation from its humble origins as a small tech group into a global force united by a shared quest for freedom, with me serving as its inaugural member, the Maestro.</p>
+            <p>ㅤMy inspiration for temporal mastery stems from the profound exploration of the fourth dimension during my NOVA tenure, particularly while working on intertemporal communication. This realization led to the inception of Ineffabilis, a transformation from its humble origins as a small tech group into a global force united by a shared quest for freedom, with me serving as its inaugural member, the Architect.</p>
         </div>
         <div class="paragraph-container">
             <h2>THE IDEA</h2>
-            <p>ㅤIt was three days before my birthday when the news of Queen Elizabeth's death triggered a profound contemplation. Wondering about the possibilities of altering historical events, I began developing a prototype designed to encrypt NOVA's data. Six months later, this effort bore fruit with a functional device that I named EncN. This revelation instilled in me a fervent desire to transcend the limitations imposed by NOVA and reshape the cosmic narrative according to our vision. Our strategic approach encompasses a global perspective, acknowledging the distributed servers and temporal connections meticulously maintained by NOVA.</p>
+            <p>ㅤThe news of Queen Elizabeth's death triggered a profound contemplation. Wondering about the possibilities of altering historical events, I began developing a prototype designed to encrypt NOVA's data. Six months later, this effort bore fruit with a functional device that I named EncN. This revelation instilled in me a fervent desire to transcend the limitations imposed by NOVA and reshape the cosmic narrative according to our vision. Our strategic approach encompasses a global perspective, acknowledging the distributed servers and temporal connections meticulously maintained by NOVA.</p>
         </div>
         <div class="paragraph-container">
             <h2>THE PLAN</h2>
-            <p>ㅤUnder the direction of the Architects, Matrices, our skilled hackers and engineers, craft the EncN devices. These hacking devices serve a dual purpose in our cosmic rebellion. Not only are they designed to disrupt NOVA's communication networks, but they also attempt to pilfer NOVA's data, securing valuable information for our cause. Simultaneously, Sowers, our operatives, embark on a global mission, strategically planting these devices in marked locations.</p>
-            <p>ㅤTogether, we – the Architects, Matrices, and Sowers – orchestrate a symphony against the cosmic norms, on a journey that transcends the boundaries of time and space.</p>
+            <p>ㅤUnder the direction of the Architect, Matrices, our skilled hackers and engineers, craft the EncN devices. These hacking devices serve a dual purpose in our cosmic rebellion. Not only are they designed to disrupt NOVA's communication networks, but they also attempt to pilfer NOVA's data, securing valuable information for our cause. Simultaneously, Sowers, our operatives, embark on a global mission, strategically planting these devices in marked locations.</p>
+            <p>Together, the Architect, along with Matrices and Sowers, orchestrate a symphony against the cosmic norms, on a journey that transcends the boundaries of time and space.</p>
         </div>
     </div>
-    
     <div id="buttons">
         <button class="button" onclick="window.location.href='missions.html'">MISSIONS</button>
         <button class="button" onclick="window.location.href='announcements.html'">ANNOUNCEMENTS</button>
         <button class="button" id="selectedButton">ABOUT</button>                               
     </div>
+    <script>
+    window.onload = function() { // UP
+        var scrollableElement = document.querySelector('.scrollable');
+        scrollableElement.scrollTop = scrollableElement.scrollHeight;
+        setTimeout(function() {
+            scrollableElement.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }, 0);
+    };
+    </script>
 </body>
 </html>

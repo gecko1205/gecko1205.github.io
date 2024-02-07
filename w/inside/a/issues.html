@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ineffabilis</title>
+    <link rel="stylesheet" href="../app_style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body>
+    <div id="header-container">
+        <div id="account-info">
+            <p id="account-level">Ineffabilis account level: <strong>A</strong></p>
+            <button class="button" id="logoutButton" onclick="window.location.href='../../login.html'"><i
+                    class="material-icons">exit_to_app</i></button>
+        </div>
+    </div>
+    <div id="page-title">
+        <h2>Issues</h2>
+    </div>
+
+    <div id="chat" class="scrollable">
+        <!-- Display current issues -->
+    </div>
+
+    <div id="buttons" class="bottom-right">
+        <button class="button" onclick="window.location.href='missions.html'">MISSIONS</button>
+        <button class="button" id="selectedButton">ISSUES</button>
+        <button class="button" onclick="window.location.href='pannel.html'">PANNEL</button>
+    </div>
+</body>
+
+<script>
+    function displayIssues() {
+        var issues = [
+            { 'date': '[11/30/23]', 'role': 'C', 'name': 'WHITNEY', 'fullName': 'WHITNEY LOCKIE JEAN-CHRISTOPHE', 'type': 'Object lost or destroyed', 'comment': '' },
+            { 'date': '[12/01/23]', 'role': 'C', 'name': 'LUCAS', 'fullName': 'LUCAS ALMEIDA', 'type': 'Location is inaccessible', 'comment': 'they closed the area.' },
+            { 'date': '[12/01/23]', 'role': 'B', 'name': 'SOFIA', 'fullName': 'SOFIA GARCIA', 'type': 'Location is inaccessible', 'comment': 'There are many people there' },
+            { 'date': '[12/02/23]', 'role': 'C', 'name': 'LEO', 'fullName': 'LEO ROSSI', 'type': 'Object lost or destroyed', 'comment': '' },
+            { 'date': '[12/02/23]', 'role': 'C', 'name': 'DAFNE', 'fullName': 'DAFNE NATASA MARIAN', 'type': 'Unable to find the target', 'comment': 'Couldn\'t find the device anywhere' },
+            { 'date': '[12/04/23]', 'role': 'B', 'name': 'GABRIEL', 'fullName': 'GABRIEL SILVA', 'type': 'Request download permission', 'comment': '' },
+            { 'date': '[12/05/23]', 'role': 'C', 'name': 'ANDREW', 'fullName': 'ANDREW CHARLES BRYAN', 'type': 'Object lost or destroyed', 'comment': 'I lost my activation card' },
+            { 'date': '[12/05/23]', 'role': 'C', 'name': 'MICHAL', 'fullName': 'MICHAL BARBARA GRISELDA', 'type': 'Request download permission', 'comment': '' },
+            { 'date': '[12/06/23]', 'role': 'B', 'name': 'LOUIS', 'fullName': 'LOUIS DUBOIS', 'type': 'Location is inaccessible', 'comment': 'High traffic in the area.' },
+            { 'date': '[12/06/23]', 'role': 'C', 'name': 'MATTEO', 'fullName': 'MATTEO BIANCHI', 'type': 'Device malfunction', 'comment': 'It says "Unauthorized" in my app' },
+            { 'date': '[12/07/23]', 'role': 'C', 'name': 'HELENA', 'fullName': 'HELENA COSTA SANTANA', 'type': 'Object lost or destroyed', 'comment': 'I dont have the card anymore' },
+            { 'date': '[12/07/23]', 'role': 'B', 'name': 'LEONARDO', 'fullName': 'LEONARDO SILVA ROCHA', 'type': 'Request download permission', 'comment': '' },
+            { 'date': '[12/08/23]', 'role': 'C', 'name': 'RYUTA', 'fullName': 'RYUTA TAKAHASHI', 'type': 'Device malfunction', 'comment': 'Unauthorized error' },
+            { 'date': '[12/09/23]', 'role': 'C', 'name': 'DAVID', 'fullName': 'DAVID NICHOLAS BRIAN', 'type': 'Location is inaccessible', 'comment': 'They closed the area.' },
+            { 'date': '[12/12/23]', 'role': 'C', 'name': 'SEBASTIANA', 'fullName': 'SEBASTIANA FULGENCIO NADIA', 'type': 'Request download permission', 'comment': 'I cannot download the file' },
+            { 'date': '[12/13/23]', 'role': 'C', 'name': 'IVAN', 'fullName': 'IVAN PETROV', 'type': 'Device malfunction', 'comment': 'It said the GPS is not operational.' },
+            { 'date': '[12/14/23]', 'role': 'B', 'name': 'LEONARDO', 'fullName': 'LEONARDO SILVA ROCHA', 'type': 'Anomalous device log', 'comment': 'pastebin.com/bCng2s5d (aZrseCj5p8)' },
+            { 'date': '[12/15/23]', 'role': 'C', 'name': 'JOHN', 'fullName': 'JOHN JOHNSON', 'type': 'Request download permission', 'comment': '' },
+        ]
+
+
+        var chatElement = document.getElementById('chat');
+
+        issues.forEach(function (issue) {
+            var issueItem = document.createElement('div');
+            issueItem.classList.add('issue-item');
+
+            var messageContent = document.createElement('h2');
+            messageContent.classList.add('issue-item-text');
+            messageContent.innerHTML = '<b>' + issue.date + '</b> (' + issue.role + ') ' + issue.name + ': <br><r>' + issue.type + '</r><br><sc>' + issue.comment + '</sc>';
+
+            var button1 = document.createElement('button');
+            button1.classList.add('button', 'small-button');
+            button1.id = 'selectedButton';
+            button1.innerHTML = '<i class="material-icons">warning</i>';
+
+            var button2 = document.createElement('button');
+            button2.classList.add('button', 'small-button');
+            button2.innerHTML = '<i class="material-icons">send</i>';
+            button2.addEventListener('click', function () {
+                window.location.href = 'missions.html?name=' + issue.fullName;
+            });
+
+            issueItem.appendChild(messageContent);
+            issueItem.appendChild(button1);
+            issueItem.appendChild(button2);
+
+            chatElement.appendChild(issueItem);
+        });
+    }
+
+    window.onload = function () {
+        displayIssues();
+
+        var scrollableElement = document.querySelector('.scrollable');
+        scrollableElement.scrollTo({
+            top: scrollableElement.scrollHeight,
+            behavior: 'smooth'
+        });
+    };
+
+    function alert(message) {
+        var existingAlerts = document.querySelectorAll(".custom-alert");
+        existingAlerts.forEach(function (alert) {
+            alert.parentNode.removeChild(alert);
+        });
+
+        var div = document.createElement("div");
+        div.className = "custom-alert";
+        div.innerHTML = "<div style='font-family: \"DM Mono\", sans-serif; color: #ffffff; background-color: #Cb3232ee; border: 2px solid #ffffff; border-radius: 5px; padding: 10px; font-size: 20px; white-space: nowrap;'>" + message + "</div>";
+        document.body.appendChild(div);
+        div.style.position = "fixed";
+        div.style.top = "50%";
+        div.style.left = "50%";
+        div.style.transform = "translate(-50%, -50%)";
+        div.style.zIndex = "9999";
+        setTimeout(function () {
+            div.parentNode.removeChild(div);
+        }, 3000);
+    }
+
+</script>
+
+</html>

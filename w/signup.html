@@ -17,7 +17,7 @@
         <form id="signupForm">
           <img src="https://i.imgur.com/AYrbizY.png" style="width: 100%; max-width: 400px; height: auto; display: block; margin: 0 auto; margin-bottom: 20px;">
           <h2 class="title">Create an account</h2>
-          <input type="text" id="name" required placeholder="&#xf007;  Full Name" oninput="this.value = this.value.toUpperCase(); generatePassword()" />
+          <input type="text" id="name" required placeholder="&#xf007;  Full Name (Latin Alphabet)" oninput="validateName(this); generatePassword()" />
           <input type="text" id="dob" required placeholder="&#xf073;  Date of Birth (MM/DD)" pattern="\d{2}/\d{2}" maxlength="5" oninput="generatePassword()" />
           <input type="text" id="iso_code" maxlength="2" required placeholder="&#xf024;  Country of Origin (ISO 3166-1 alpha-2)" oninput="this.value = this.value.replace(/[^A-Za-z]/g, '').toUpperCase().slice(0, 2); generatePassword()" pattern="[A-Za-z]{2}" />
           <input type="text" id="invitation_code" required placeholder="&#xf0e0;  Invitation Code" minlength="4" maxlength="4" oninput="this.value = this.value.replace(/\s/g, ''); generatePassword()" />
@@ -83,6 +83,12 @@
       div.parentNode.removeChild(div);
     }, 3000);
   }
+
+  function validateName(input) {
+    input.value = input.value
+      .toUpperCase()
+      .replace(/[^A-Z\s'-]/g, '');
+    }
 
   document.getElementById("dob").addEventListener("input", function() {
         var value = this.value.replace(/\D/g, '');

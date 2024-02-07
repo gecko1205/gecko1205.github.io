@@ -15,20 +15,22 @@
             <button class="button" id="logoutButton" onclick="window.location.href='../../login.html'"><i class="material-icons">exit_to_app</i></button>
         </div>
     </div>
-    <div id="current-objective">
+    <div id="page-title">
         <h2>Announcements</h2>
     </div>
 
     <div id="chat" class="scrollable">
-        <h2><b>[03/14/23] </b>Hello, Matrix. Welcome to Ineffabilis. Your primary mission is to gather materials and assemble the devices known as EncNs, as outlined in the MISSIONS tab. For detailed instructions, please refer to the provided information. Best of luck on your mission!</h2>
-        <h2><g>[03/21/23] Mission marked as complete.</g></h2>
-        <h2><b>[03/19/23] </b>Congratulations on completing your first mission! Your final task is to discreetly hide the EncN devices in the specified locations. For further instructions, please refer to the MISSIONS tab.</h2>
-        <h2><g>[03/18/23] Mission marked as complete.</g></h2>
-        <h2><a>[03/22/23] Alert: New unforeseen mission available. Immediate attention required. Please check for details in the MISSIONS tab.</a></h2>
-        <h2><o>[03/22/23] Warning: Time is running out! You must complete the mission within the next 24 hours.</o></h2>
-        <h2><r>[03/18/23] User reported: Request download permission. We'll review the case shortly.</r></h2>
-        <h2><b>[03/19/23] </b>You are now eligible for a download.</h2>
-        <h2><g>[03/18/23] Mission marked as complete.</g></h2>
+        <h2><b>[11/12/23] </b>Hello, Matrix. Welcome to Ineffabilis. Your primary mission is to download the essential application shown on the MISSIONS tab onto your computer. This single application will provide you with enhanced communication options and the necessary tools for your journey. Best of luck!</h2>
+        <h2><g>[11/12/23] Mission marked as complete.</g></h2>
+        <h2><b>[11/15/23] </b>Congratulations on completing your first mission! Your next objective is to gather materials and assemble the devices known as EncNs, as outlined in the MISSIONS tab. For detailed instructions, please refer to the provided information. Best of luck on your mission!</h2>
+        <h2><g>[11/21/23] Mission marked as complete.</g></h2>
+        <h2><b>[11/22/23] </b>Well done! Your next task is to discreetly hide the EncN devices in the specified locations. For further instructions, please refer to the MISSIONS tab.</h2>
+        <h2><g>[11/26/23] Mission marked as complete.</g></h2>
+        <h2><a>[12/07/23] Alert: New unforeseen mission available. Immediate attention required. Please check for details in the MISSIONS tab.</a></h2>
+        <h2><r>[12/07/23] User reported: Request download permission. We'll review the case shortly.</r></h2>
+        <h2><b>[12/07/23] </b>You are now eligible to download for the next 24 hours.</h2>
+        <h2><g>[12/09/23] Mission marked as complete.</g></h2>
+        <h2><r>[12/14/23] User reported: Anomalous device log. We'll review the case shortly.<br></r><l>Comment: </l>pastebin.com/bCng2s5d (aZrseCj5p8)</h2>
     </div>
         <button onclick="window.location.href='report.html'" class="button report">REPORT</button>
 
@@ -38,9 +40,14 @@
         <button class="button" onclick="window.location.href='about.html'">ABOUT</button>                                
     </div>
 
-<script>
-
-</script>
-
+    <script>
+        window.onload = function() { // DOWN
+            var scrollableElement = document.querySelector('.scrollable');
+            scrollableElement.scrollTo({
+                top: scrollableElement.scrollHeight,
+                behavior: 'smooth'
+            });
+        };
+    </script>
 </body>
 </html>

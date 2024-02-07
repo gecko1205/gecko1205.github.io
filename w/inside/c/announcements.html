@@ -15,16 +15,17 @@
             <button class="button" id="logoutButton" onclick="window.location.href='../../login.html'"><i class="material-icons">exit_to_app</i></button>
         </div>
     </div>
-    <div id="current-objective">
+    <div id="page-title">
         <h2>Announcements</h2>
     </div>
 
     <div id="chat" class="scrollable">
-        <h2><b>[11/28/23] </b>Hello, Sower. Welcome to Ineffabilis. Your first task is to proceed to the specified location and retrieve a device known as EncN. For detailed instructions, please refer to the MISSIONS tab. Best of luck on your mission!</h2>
-        <h2><o>[12/01/23] Warning: Time is running out! You must complete the mission within the next 24 hours.</o></h2>
-        <h2><g>[12/02/23] Mission marked as complete.</g></h2>
-        <h2><b>[12/09/23] </b>Congratulations on completing your first mission! Your next objective is to proceed to another specified location with the EncN device and the card provided in the invitation letter. Initiate the device as described on the MISSIONS tab. May success accompany you on this final endeavor!</h2>
-        <h2><o>[12/10/23] Warning: The device was activated in the wrong location. Check the MISSIONS tab for further instructions.</o></h2>
+        <h2><b>[11/29/23] </b>Hello, Sower. Welcome to Ineffabilis. Your first task is to proceed to the specified location and retrieve a device known as EncN. For detailed instructions, please refer to the MISSIONS tab. Best of luck on your mission!</h2>
+        <h2><o>[12/05/23] Warning: Time is running out! You must complete the mission within the next 24 hours.</o></h2>
+        <h2><g>[12/05/23] Mission marked as complete.</g></h2>
+        <h2><b>[12/06/23] </b>Congratulations on completing your first mission! Your next objective is to proceed to another specified location with the EncN device and the card provided in the invitation letter. Initiate the device as described on the MISSIONS tab. May success accompany you on this final endeavor!</h2>
+        <h2><r>[12/08/23] User reported: Device malfunction. We'll review the case shortly.</r><br><l>Comment: </l>Unauthorized error</h2>
+        <h2><b>[12/08/23] </b>To resolve the issue, connect the device's USB flash drive to a computer and utilize the decryption tool available in the MISSIONS tab. Follow the instructions to update the protocol file as explained.</h2>
         <h2><o>[12/12/23] Warning: Time is running out! You must complete the mission within the next 24 hours.</o></h2>
         <h2><a>[12/13/23] Alert: Mission Failure. You have failed to complete the assigned task. Consequences will follow.</a></h2>
     </div>
@@ -35,5 +36,14 @@
         <button class="button" id="selectedButton">ANNOUNCEMENTS</button>
         <button class="button" onclick="window.location.href='about.html'">ABOUT</button>                                
     </div>
+    <script>
+        window.onload = function() { // DOWN
+            var scrollableElement = document.querySelector('.scrollable');
+            scrollableElement.scrollTo({
+                top: scrollableElement.scrollHeight,
+                behavior: 'smooth'
+            });
+        };
+    </script>    
 </body>
 </html>

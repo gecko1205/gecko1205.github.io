@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ineffabilis</title>
+    <link rel="stylesheet" href="../app_style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+</head>
+<body>
+    <div id="header-container">
+        <div id="account-info">
+            <p id="account-level">Ineffabilis account level: <strong>A</strong></p>
+            <button class="button" id="logoutButton" onclick="window.location.href='../../login.html'"><i class="material-icons">exit_to_app</i></button>
+        </div>
+    </div>
+    <div id="page-title">
+        <h2>Control pannel</h2>
+    </div>
+    <br>
+    <div id="access-section">
+        <p id="access-message">To have access to the Control Pannel on this device, you need an Access Override key.</p>
+        <br>
+        <form id="access-form">
+            <input type="text" id="access-key" name="access-key" placeholder="&#xf084;  Access Override key" maxlength="20">
+            <button class="button" id="submit-access">SUBMIT</button>
+        </form>
+    </div>
+
+    <div id="buttons">
+        <button class="button" onclick="window.location.href='missions.html'">MISSIONS</button>
+        <button class="button" onclick="window.location.href='issues.html'">ISSUES</button>
+        <button class="button" id="selectedButton">PANNEL</button>                               
+    </div>
+
+<script>
+    document.getElementById('submit-access').addEventListener('click', function(event) {
+        event.preventDefault();
+            
+        var accessKeyInput = document.getElementById('access-key').value;
+            
+        if (accessKeyInput === "9up6he3utHq%mXiBcF#U") {
+            window.location.href = "pannel.html";
+        } else {
+            alert("Invalid Access Override key.");
+        }
+    });
+
+    function alert(message) {
+        var existingAlerts = document.querySelectorAll(".custom-alert");
+        existingAlerts.forEach(function (alert) {
+        alert.parentNode.removeChild(alert);
+        });
+    
+        var div = document.createElement("div");
+        div.className = "custom-alert";
+        div.innerHTML = "<div style='font-family: \"DM Mono\", sans-serif; color: #ffffff; background-color: #Cb3232ee; border: 2px solid #ffffff; border-radius: 5px; padding: 10px; font-size: 20px; white-space: nowrap;'>" + message + "</div>";
+        document.body.appendChild(div);
+        div.style.position = "fixed";
+        div.style.top = "50%";
+        div.style.left = "50%";
+        div.style.transform = "translate(-50%, -50%)";
+        div.style.zIndex = "9999";
+        setTimeout(function () {
+        div.parentNode.removeChild(div);
+        }, 3000);
+    }
+</script>
+</body>
+</html>

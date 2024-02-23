@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="../app_style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
 </head>
 <body>
     <div id="header-container">
@@ -18,27 +20,72 @@
     <div id="page-title">
         <h2>Control pannel</h2>
     </div>
-    <div id="about" class="scrollable">
+
+    <div id="map-container" class="scrollable">
         <div class="paragraph-container">
-            <h2>THE ORIGIN</h2>
-            <p>ㅤMy inspiration for temporal mastery stems from the profound exploration of the fourth dimension during my NOVA tenure, particularly while working on intertemporal communication. This realization led to the inception of Ineffabilis, a transformation from its humble origins as a small tech group into a global force united by a shared quest for freedom, with me serving as its inaugural member, the Architect.</p>
+            <h2>EncN devices</h2>
         </div>
-        <div class="paragraph-container">
-            <h2>THE IDEA</h2>
-            <p>ㅤThe news of Queen Elizabeth's death triggered a profound contemplation. Wondering about the possibilities of altering historical events, I began developing a prototype designed to encrypt NOVA's data. Six months later, this effort bore fruit with a functional device that I named EncN. This revelation instilled in me a fervent desire to transcend the limitations imposed by NOVA and reshape the cosmic narrative according to our vision. Our strategic approach encompasses a global perspective, acknowledging the distributed servers and temporal connections meticulously maintained by NOVA.</p>
+
+        <div class="box" ondblclick="alert('Unavailable on mobile.')">
+            <b>Geolocations</b>
+            <img src="map.png">
         </div>
+        
+        <div id="chat">
+            <h2 class="special"><g>Active: 137<g> <r>Inactive: 15</r></h2>
+            <h2 class="special"><o>Defective: 8</o> Total: 160</h2>
+        </div>
+        <button class="button select" onclick="alert('Unavailable on mobile.')">Detailed Status</button>
+
+            <div class="paragraph-container">
+                <h2>Analytics</h2>
+                <div class="box" ondblclick="alert('Unavailable on mobile.')">
+                    <img src="graph.png">
+                </div>
+                <div id="chat">
+                <h2><b>Acception %: 82</b></h2>
+                <h2><g>Completion %: 69</g></h2>
+                <h2><o>Report %: 33</o></h2>
+                <h2><r>Error %: 41</r></h2>
+                </div>
+            </div>
+    
+        
+        <button class="button select" onclick="window.location.href='resources.html'">View Resources</button>
+        <button class="button select" onclick="window.location.href='http://189.63.84.247:81/?i=ineffabilis'">Access Database</button>
+        
         <div class="paragraph-container">
-            <h2>THE PLAN</h2>
-            <p>ㅤUnder the direction of the Architect, Matrices, our skilled hackers and engineers, craft the EncN devices. These hacking devices serve a dual purpose in our cosmic rebellion. Not only are they designed to disrupt NOVA's communication networks, but they also attempt to pilfer NOVA's data, securing valuable information for our cause. Simultaneously, Sowers, our operatives, embark on a global mission, strategically planting these devices in marked locations.</p>
-            <p>Together, the Architect, along with Matrices and Sowers, orchestrate a symphony against the cosmic norms, on a journey that transcends the boundaries of time and space.</p>
+        <sm>Please note the possibility of a delay in updating information.</sm>
         </div>
     </div>
+
     <div id="buttons">
         <button class="button" onclick="window.location.href='missions.html'">MISSIONS</button>
         <button class="button" onclick="window.location.href='issues.html'">ISSUES</button>
         <button class="button" id="selectedButton">PANNEL</button>                               
     </div>
+
     <script>
+    function alert(message) {
+      var existingAlerts = document.querySelectorAll(".custom-alert");
+      existingAlerts.forEach(function (alert) {
+        alert.parentNode.removeChild(alert);
+      });
+
+      var div = document.createElement("div");
+      div.className = "custom-alert";
+      div.innerHTML = "<div style='font-family: \"DM Mono\", sans-serif; color: #ffffff; background-color: #Cb3232ee; border: 2px solid #ffffff; border-radius: 5px; padding: 10px; font-size: 20px; white-space: nowrap;'>" + message + "</div>";
+      document.body.appendChild(div);
+      div.style.position = "fixed";
+      div.style.top = "50%";
+      div.style.left = "50%";
+      div.style.transform = "translate(-50%, -50%)";
+      div.style.zIndex = "9999";
+      setTimeout(function () {
+        div.parentNode.removeChild(div);
+      }, 3000);
+    }
+    
     window.onload = function() { // UP
         var scrollableElement = document.querySelector('.scrollable');
         scrollableElement.scrollTop = scrollableElement.scrollHeight;

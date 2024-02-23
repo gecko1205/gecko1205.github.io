@@ -40,10 +40,10 @@
                 <input type="text" id="messageInput">
         
                 <label for="attachmentsInput">Add attachments:</label>
-                <input type="file" id="attachmentsInput">
-        
+                <label for="attachmentsInput" class="custom-file-label">Select files</label>
+                <input type="file" id="attachmentsInput" style="display: none;">
+                <br>
                 <button id="addMessageButton" onclick="alert('Unavailable on mobile.')">Add topic [+]</button>
-
                 <button class=assign-mission id="assignMissionButton">Assign mission</button>
             </div>
         </div>
@@ -51,7 +51,7 @@
     <div id="buttons">
         <button class="button" id="selectedButton">MISSIONS</button>
         <button class="button" onclick="window.location.href='issues.html'">ISSUES</button>
-        <button class="button" onclick="window.location.href='pannel.html'">PANNEL</button>
+        <button class="button" onclick="window.location.href='pannel_lock.html'">PANNEL</button>
     </div>
 
     <script>

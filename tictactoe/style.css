@@ -1,0 +1,81 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f2f5;
+    color: #333;
+    margin: 0;
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.status {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    height: 30px;
+    color: #34495e;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 5px;
+    background-color: #34495e;
+    border: 5px solid #34495e;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    background-color: #ecf0f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, opacity 0.4s ease; /* Adicionada transição de opacidade */
+}
+
+.cell:hover {
+    background-color: #dbe4e8;
+}
+
+.cell.x {
+    color: #e74c3c; /* Vermelho */
+}
+
+.cell.o {
+    color: #3498db; /* Azul */
+}
+
+/* NOVA CLASSE PARA O PREVIEW */
+.cell.disappearing {
+    opacity: 0.4; /* Deixa a peça mais transparente */
+}
+
+.restart-button {
+    margin-top: 25px;
+    padding: 12px 25px;
+    font-size: 1em;
+    font-weight: bold;
+    color: white;
+    background-color: #3498db;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.restart-button:hover {
+    background-color: #2980b9;
+}

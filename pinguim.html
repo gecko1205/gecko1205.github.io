@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Pinguins</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --success: #10b981;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-top: 0;
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        input {
+            background-color: #0f172a;
+            border: 1px solid #334155;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .output-container {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 250px;
+            background-color: #0f172a;
+            border: 1px solid #334155;
+            color: var(--text-primary);
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 18px;
+            line-height: 1.5;
+            resize: vertical;
+            box-sizing: border-box;
+            font-family: monospace;
+            white-space: pre;
+            overflow-wrap: normal;
+            overflow-x: auto;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        button {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.2s, transform 0.1s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        button:hover {
+            background-color: var(--accent-hover);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        button.copied {
+            background-color: var(--success);
+        }
+
+        .copy-icon {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.2s;
+        }
+
+        button:hover .copy-icon {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🐧 Gerador de Pinguins</h1>
+
+        <div class="controls">
+            <div class="form-group">
+                <label for="input-n">Tamanho Máximo (N)</label>
+                <input type="number" id="input-n" value="5" min="1">
+            </div>
+            <div class="form-group">
+                <label for="input-x">Repetições (X)</label>
+                <input type="number" id="input-x" value="2" min="1">
+            </div>
+            <div class="form-group full-width">
+                <label for="input-char">Emoji/Texto Base</label>
+                <input type="text" id="input-char" value="🐧">
+            </div>
+        </div>
+
+        <div class="output-container">
+            <textarea id="output" readonly></textarea>
+        </div>
+
+        <button id="copy-btn" onclick="copyToClipboard()">
+            <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                </path>
+            </svg>
+            <span>Copiar para a Área de Transferência</span>
+        </button>
+    </div>
+
+    <script>
+        const inputN = document.getElementById('input-n');
+        const inputX = document.getElementById('input-x');
+        const inputChar = document.getElementById('input-char');
+        const output = document.getElementById('output');
+        const copyBtn = document.getElementById('copy-btn');
+        const copyText = copyBtn.querySelector('span');
+
+        function generatePenguins() {
+            const n = parseInt(inputN.value) || 0;
+            const x = parseInt(inputX.value) || 0;
+            const char = inputChar.value || '';
+
+            let result = '';
+
+            for (let rep = 0; rep < x; rep++) {
+                // Crescente
+                for (let i = 1; i <= n; i++) {
+                    result += char.repeat(i) + '\n';
+                }
+                // Decrescente
+                for (let i = n - 1; i > 0; i--) {
+                    result += char.repeat(i) + '\n';
+                }
+            }
+
+            // Remove a última quebra de linha
+            if (result.endsWith('\n')) {
+                result = result.slice(0, -1);
+            }
+
+            output.value = result;
+        }
+
+        async function copyToClipboard() {
+            try {
+                // Tenta usar a API moderna primeiro
+                await navigator.clipboard.writeText(output.value);
+                showSuccess();
+            } catch (err) {
+                // Fallback para o método antigo se a API falhar
+                try {
+                    output.select();
+                    document.execCommand('copy');
+                    window.getSelection().removeAllRanges();
+                    showSuccess();
+                } catch (err2) {
+                    alert("Falha ao copiar texto!");
+                }
+            }
+        }
+
+        function showSuccess() {
+            const originalText = copyText.innerText;
+            const svgPath = copyBtn.querySelector('path');
+            const originalD = svgPath.getAttribute('d');
+
+            // Muda para o ícone de 'check' temporariamente
+            svgPath.setAttribute('d', 'M5 13l4 4L19 7');
+
+            copyText.innerText = 'Copiado com sucesso!';
+            copyBtn.classList.add('copied');
+
+            setTimeout(() => {
+                copyText.innerText = originalText;
+                copyBtn.classList.remove('copied');
+                svgPath.setAttribute('d', originalD);
+            }, 2000);
+        }
+
+        // Atualiza em tempo real
+        inputN.addEventListener('input', generatePenguins);
+        inputX.addEventListener('input', generatePenguins);
+        inputChar.addEventListener('input', generatePenguins);
+
+        // Geração inicial
+        generatePenguins();
+    </script>
+</body>
+
+</html>
